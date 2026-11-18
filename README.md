@@ -31,20 +31,17 @@ Engineered with the bleeding-edge modern triumvirate:
 
 ```mermaid
 flowchart TD
-    User(["🎬 Creator / Client"]) <-->|"Chunked Video Upload & Live WS Progress"| Next["Next.js 14 Studio (apps/web)"]
-    Next <-->|"REST API & WebSocket Streams"| Go["Go Gateway & Task Coordinator (services/gateway)"]
-    Go <-->|"Fast IPC / gRPC Dispatch"| Rust["Rust High-Performance Media Kernel (services/engine-rust)"]
-    Go <--> Storage[("Local / S3 Compatible Storage")]
-    Go <--> DB[("Task State Store")]
+    User["Client / Creator Studio (Next.js 14)"] -->|"Upload and Live Telemetry"| Gateway["Go Gateway and Task Coordinator"]
+    Gateway -->|"IPC Subprocess Dispatch"| Kernel["Rust Media Compute Kernel"]
+    Gateway --> Storage[("Local / S3 Storage Engine")]
+    Gateway --> DB[("Task State Store")]
 
-    subgraph Rust Kernel Operations
-        R1["Audio Waveform Analyzer (Vector JSON)"]
-        R2["Smart Animated WebP / Thumbnail Extractor"]
-        R3["Dynamic Frame Watermarking & Metadata Invariant"]
+    subgraph RustOps["Rust Media Kernel Pipeline"]
+        T1["Audio Waveform Vector Analyzer"]
+        T2["Smart Animated WebP Extractor"]
+        T3["Watermark and Amplitude Normalizer"]
     end
-    Rust --- R1
-    Rust --- R2
-    Rust --- R3
+    Kernel --> RustOps
 ```
 
 ---
@@ -115,4 +112,4 @@ npm run dev
 ---
 
 ## 📜 License
-Distributed under the MIT License. Built with ❤️ by [Prachi Zala](https://github.com/prachizala).
+Distributed under the MIT License. Built by [Prachi Zala](https://github.com/prachizala).
